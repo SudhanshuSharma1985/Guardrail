@@ -195,21 +195,12 @@ def display_conversation():
                 with st.chat_message("assistant"):
                     st.write(message["content"])
                     
-                    # Show validation info if available
-                    if message.get("validation_info"):
-                        with st.expander("🛡️ Security Info", expanded=False):
-                            info = message["validation_info"]
-                            if info.get("input_modified"):
-                                st.info("Input was filtered for safety")
-                            if info.get("output_modified"):
-                                st.info("Response was filtered for safety")
-                            if not info.get("validation_passed"):
-                                st.warning("Some content may have been filtered")
+                    
 
 def main():
     """Main Streamlit application."""
     st.set_page_config(
-        page_title="Secure AI Chatbot",
+        page_title="EWS Chatbot",
         page_icon="🤖",
         layout="wide",
         initial_sidebar_state="expanded"
@@ -220,12 +211,11 @@ def main():
     
     # Sidebar
     with st.sidebar:
-        st.title("🛡️ Secure AI Chatbot")
-        st.markdown("---")
+       
         
-        st.subheader("🔒 Security Features")
+    
         st.markdown("""
-        **Active Guardrails:**
+        **🔒  Active Guardrails:**
         - 🟡 Unusual Prompt Detection (Warning)
         - ✅ Secrets Detection
         - ✅ PII Detection & Filtering
@@ -235,7 +225,7 @@ def main():
         - ✅ Politeness Check
         - 🟡 Gibberish Text Detection (Lenient)
         
-        **Note:** Guardrails are tuned for practical use while maintaining security.
+        
         """)
         
         st.markdown("---")
@@ -249,13 +239,11 @@ def main():
             st.rerun()
         
         st.markdown("---")
-        st.subheader("⚙️ Model Settings")
-        st.info("Using: GPT-3.5-Turbo via LangChain")
+       
     
     # Main chat interface
-    st.title("🤖 Secure AI Chatbot")
-    st.markdown("Chat safely with AI - all messages are filtered through multiple security layers!")
-    
+    st.title(" EWS Chatbot")
+   
     # Display conversation
     display_conversation()
     
@@ -266,12 +254,12 @@ def main():
         with col1:
             user_input = st.text_input(
                 "Type your message here...",
-                placeholder="Ask me anything (safely)!",
+                placeholder="Ask me anything!",
                 label_visibility="collapsed"
             )
         
         with col2:
-            send_button = st.form_submit_button("Send 📤", use_container_width=True)
+            send_button = st.form_submit_button("Enter", use_container_width=True)
     
     # Process user input
     if send_button and user_input.strip():
@@ -283,7 +271,7 @@ def main():
         })
         
         # Show thinking indicator
-        with st.spinner("🤔 Thinking securely..."):
+        with st.spinner("Thinking..."):
             # Get AI response
             response_data = st.session_state.chatbot.get_response(
                 user_input, 
@@ -317,7 +305,6 @@ def main():
     st.markdown("---")
     st.markdown(
         "<div style='text-align: center; color: gray;'>"
-        "🔒 This chatbot uses multiple AI safety guardrails to ensure secure conversations."
         "</div>",
         unsafe_allow_html=True
     )
